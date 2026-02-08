@@ -1,7 +1,9 @@
+import { Header } from "@/components/shared/header";
+
 export default function Home() {
   return (
-    <main>
-      <h1>Hello World</h1>
+    <main className="min-h-screen bg-neutral-50">
+      <Header />
     </main>
   );
 }
