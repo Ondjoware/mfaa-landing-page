@@ -1,3 +1,5 @@
+import Footer from "@/components/shared/footer";
+import { Header } from "@/components/shared/header";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -13,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-AO">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
