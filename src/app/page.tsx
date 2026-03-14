@@ -1,13 +1,18 @@
+import { Suspense } from "react";
 import ArticlesSection from "@/components/home/articles-section";
 import CTASection from "@/components/home/cta-section";
 import EventsSection from "@/components/home/events-section";
 import GalleryCarousel from "@/components/home/gallery-carousel";
-import HeroSection from "@/components/home/hero-section";
+import HeroSection, {
+  HeroSectionSkeleton,
+} from "@/components/home/hero-section";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-50">
-      <HeroSection />
+      <Suspense fallback={<HeroSectionSkeleton />}>
+        <HeroSection />
+      </Suspense>
       <GalleryCarousel />
       <ArticlesSection />
       <EventsSection />

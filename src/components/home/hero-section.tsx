@@ -3,6 +3,22 @@ import { getHeroSectionData } from "@/lib/strapi/services/museum-info";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
+export function HeroSectionSkeleton() {
+  return (
+    <section className="relative h-150 overflow-hidden bg-neutral-800 animate-pulse">
+      <div className="relative h-full container mx-auto px-4 flex flex-col justify-center">
+        <div className="h-16 md:h-24 w-2/3 bg-neutral-700 rounded-lg mb-6" />
+        <div className="h-7 w-1/2 bg-neutral-700 rounded-lg mb-3" />
+        <div className="h-7 w-2/5 bg-neutral-700 rounded-lg mb-8" />
+        <div className="flex flex-wrap gap-4">
+          <div className="h-14 w-44 bg-neutral-700 rounded-lg" />
+          <div className="h-14 w-36 bg-neutral-700 rounded-lg" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default async function HeroSection() {
   const { data: heroSection } = await getHeroSectionData();
 

@@ -53,4 +53,5 @@ export type QueryParams = {
   sort?: string | string[];
   filters?: Record<string, unknown>;
   populate?: string | string[];
+  fields?: string | string[];
 };

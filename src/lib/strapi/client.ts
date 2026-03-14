@@ -40,6 +40,13 @@ function buildQueryString(params: QueryParams): string {
     }
   }
 
+  if (params.fields) {
+    const fields = Array.isArray(params.fields) ? params.fields : [params.fields];
+    for (let i = 0; i < fields.length; i++) {
+      query.set(`fields[${i}]`, fields[i]);
+    }
+  }
+
   if (params.filters) {
     for (const [key, value] of Object.entries(params.filters)) {
       query.set(`filters[${key}]`, String(value));

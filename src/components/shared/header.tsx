@@ -38,7 +38,7 @@ export function Header() {
                 key={item.path}
                 href={item.path}
                 className={`transition-colors ${
-                  location.pathname === item.path
+                  pathname === item.path
                     ? "text-yellow-500 font-semibold"
                     : "text-neutral-300 hover:text-yellow-400"
                 }`}
