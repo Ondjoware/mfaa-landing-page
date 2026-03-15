@@ -1,11 +1,11 @@
 import { strapiConfig } from "@/lib/strapi/config";
-import { getHomePageArticles } from "@/lib/strapi/services/article";
+import { getFeaturedArticles } from "@/lib/strapi/services/article";
 import { formatDate } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 export default async function ArticlesSection() {
-  const { data: articles } = await getHomePageArticles();
+  const { data: articles } = await getFeaturedArticles();
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -17,6 +17,14 @@ export default async function ArticlesSection() {
             Descubra histórias fascinantes sobre nosso patrimonio militar
           </p>
         </div>
+
+        {articles.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-24 text-center">
+            <p className="text-neutral-500 text-lg">
+              Nenhum artigo disponível de momento.
+            </p>
+          </div>
+        )}
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {articles.map((article) => (

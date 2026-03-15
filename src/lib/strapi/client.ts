@@ -48,8 +48,12 @@ function buildQueryString(params: QueryParams): string {
   }
 
   if (params.filters) {
-    for (const [key, value] of Object.entries(params.filters)) {
-      query.set(`filters[${key}]`, String(value));
+    for (const [field, operators] of Object.entries(params.filters)) {
+      if (operators !== null && typeof operators === "object") {
+        for (const [operator, value] of Object.entries(operators as Record<string, unknown>)) {
+          query.set(`filters[${field}][${operator}]`, String(value));
+        }
+      }
     }
   }
 
