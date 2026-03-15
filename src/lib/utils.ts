@@ -12,3 +12,15 @@ export function formatDate(date: Date): string {
     year: "numeric",
   }).format(date)
 }
+
+export function formatTime(date: Date): string {
+  return new Intl.DateTimeFormat("pt-AO", { hour: "2-digit", minute: "2-digit", hour12: false }).format(date)
+}
+
+export function formatTimeRange(start: Date, end: Date): string {
+  return `${formatTime(start)} - ${formatTime(end)}`
+}
+
+export function getMonthName(date: Date): string {
+  return new Intl.DateTimeFormat("pt-AO", { month: "long" }).format(date)
+}

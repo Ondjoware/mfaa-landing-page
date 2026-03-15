@@ -1,36 +1,10 @@
-import { Calendar, Clock, MapPin } from "lucide-react";
+import EventItem from "@/components/event/event-item";
+import EventItemSkeleton from "@/components/event/event-item-skeleton";
+import { getNextEvents } from "@/lib/strapi/services/events";
+import { CalendarX } from "lucide-react";
 
-const events = [
-  {
-    id: 1,
-    title: "Exposição: 200 Anos da Independência",
-    date: "15 de Março, 2026",
-    time: "10:00 - 18:00",
-    location: "Pavilhão Principal",
-    description:
-      "Uma exposição especial celebrando os 200 anos da independência com artefatos raros e documentos históricos.",
-  },
-  {
-    id: 2,
-    title: "Palestra: Estratégias Militares Históricas",
-    date: "22 de Março, 2026",
-    time: "14:00 - 16:00",
-    location: "Auditório Central",
-    description:
-      "Historiadores militares discutem as principais estratégias que moldaram a história das Forças Armadas.",
-  },
-  {
-    id: 3,
-    title: "Cerimônia de Homenagem aos Veteranos",
-    date: "10 de Abril, 2026",
-    time: "11:00 - 13:00",
-    location: "Jardim das Medalhas",
-    description:
-      "Evento especial em reconhecimento ao serviço e sacrifício dos veteranos das Forças Armadas.",
-  },
-];
-
-export default function EventsSection() {
+export default async function EventsSection() {
+  const { data: events } = await getNextEvents();
   return (
     <section className="py-16 bg-neutral-100">
       <div className="container mx-auto px-4">
@@ -44,49 +18,36 @@ export default function EventsSection() {
         </div>
 
         <div className="max-w-4xl mx-auto space-y-6">
-          {events.map((event) => (
-            <div
-              key={event.id}
-              className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow flex flex-col md:flex-row gap-6"
-            >
-              <div className="shrink-0">
-                <div className="bg-yellow-500 text-neutral-900 rounded-lg p-4 text-center w-24">
-                  <div className="text-3xl font-bold">
-                    {event.date.split(" ")[0]}
-                  </div>
-                  <div className="text-sm uppercase">
-                    {event.date.split(" ")[2]}
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-neutral-900 mb-3">
-                  {event.title}
-                </h3>
-                <div className="flex flex-wrap gap-4 mb-3 text-neutral-600">
-                  <div className="flex items-center gap-2">
-                    <Clock className="size-4" />
-                    <span>{event.time}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="size-4" />
-                    <span>{event.location}</span>
-                  </div>
-                </div>
-                <p className="text-neutral-600">{event.description}</p>
-              </div>
-
-              <div className="flex items-center">
-                <button
-                  type="button"
-                  className="bg-neutral-900 hover:bg-neutral-800 text-white px-6 py-3 rounded-lg transition-colors flex items-center gap-2"
-                >
-                  <Calendar className="size-5" />
-                  Adicionar
-                </button>
-              </div>
+          {events.length === 0 ? (
+            <div className="flex flex-col items-center gap-4 py-16 text-neutral-500">
+              <CalendarX className="size-16 text-neutral-300" />
+              <p className="text-xl font-semibold">Nenhum evento agendado</p>
+              <p className="text-sm text-center max-w-sm">
+                De momento não há eventos próximos. Volte em breve para
+                descobrir as nossas próximas atividades e exposições.
+              </p>
             </div>
+          ) : (
+            events.map((event) => <EventItem key={event.id} event={event} />)
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function EventsSectionSkeleton() {
+  return (
+    <section className="py-16 bg-neutral-100">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <div className="h-10 w-64 bg-neutral-200 rounded-lg mx-auto mb-4 animate-pulse" />
+          <div className="h-5 w-80 bg-neutral-200 rounded mx-auto animate-pulse" />
+        </div>
+
+        <div className="max-w-4xl mx-auto space-y-6">
+          {["skeleton-1", "skeleton-2", "skeleton-3"].map((key) => (
+            <EventItemSkeleton key={key} />
           ))}
         </div>
       </div>
