@@ -1,7 +1,8 @@
 import type { StrapiData } from "@/lib/strapi/types/common";
 import type { Event } from "@/lib/strapi/types/event";
 import { formatTime, formatTimeRange, getMonthName } from "@/lib/utils";
-import { Calendar, Clock, MapPin } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
+import AddToCalendarButton from "./add-to-calendar-button";
 
 type Props = {
   event: StrapiData<Event>;
@@ -64,13 +65,13 @@ export default function EventItem({ event }: Props) {
       </div>
 
       <div className="flex items-center">
-        <button
-          type="button"
-          className="bg-neutral-900 cursor-pointer hover:bg-neutral-800 text-white px-6 py-3 rounded-lg transition-colors flex items-center gap-2"
-        >
-          <Calendar className="size-5" />
-          Adicionar
-        </button>
+        <AddToCalendarButton
+          title={event.title}
+          startDate={startDate}
+          endDate={endDate}
+          description={event.description}
+          location={event.location}
+        />
       </div>
     </div>
   );
