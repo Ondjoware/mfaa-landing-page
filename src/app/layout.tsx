@@ -1,6 +1,7 @@
 import Footer from "@/components/shared/footer";
 import { Header } from "@/components/shared/header";
 import type { Metadata } from "next";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default function RootLayout({
     <html lang="pt-AO">
       <body className="antialiased">
         <Header />
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
         <Footer />
       </body>
     </html>
