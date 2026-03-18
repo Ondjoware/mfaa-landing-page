@@ -1,14 +1,16 @@
-import GalleryFilters from "@/components/gallery/gallery-filters";
+import { Suspense } from "react";
+import GalleryFiltersSkeleton from "@/components/gallery/gallery-filters-skeleton";
+import GalleryFiltersWrapper from "@/components/gallery/gallery-filters-wrapper";
 import GalleryHeader from "@/components/gallery/gallery-header";
 import GalleryList from "@/components/gallery/gallery-list";
-import { getCategories } from "@/lib/strapi/services/category";
 
-export  default async function GalleryPage() {
-  const {data: categories} = await getCategories();
+export default function GalleryPage() {
   return (
     <main>
       <GalleryHeader />
-      <GalleryFilters categories={categories} />
+      <Suspense fallback={<GalleryFiltersSkeleton />}>
+        <GalleryFiltersWrapper />
+      </Suspense>
       <GalleryList />
     </main>
   );
